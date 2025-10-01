@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Détails de l'Inscrit - Academy Charles Kabore</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <style type="text/tailwindcss">
+    :root {
+      --red-500: #EF4444;
+      --orange-500: #F97316;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --white: #FFFFFF;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--gray-100);
+    }
+    .sidebar {
+      background-color: var(--gray-900);
+      color: var(--white);
+    }
+    .sidebar-link {
+      color: var(--gray-400);
+    }
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background-color: var(--gray-700);
+      color: var(--white);
+    }
+    .sidebar-link.active {
+      background-color: var(--red-500);
+    }
+    .btn-primary {
+      background-color: var(--red-500);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background-color: #D93E3E;
+    }
+    .text-red {
+      color: var(--red-500);
+    }
+    .text-orange {
+      color: var(--orange-500);
+    }
+    .bg-red-soft {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+    .bg-orange-soft {
+      background-color: rgba(249, 115, 22, 0.1);
+    }
+    .bg-green-soft {
+      background-color: rgba(34, 197, 94, 0.1);
+    }
+    .text-green-500 {
+      color: #22C55E;
+    }
+    .info-card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <div class="flex h-screen">
+    <aside class="sidebar w-64 flex flex-col p-4 space-y-4">
+      <div class="flex items-center space-x-2 pb-4 border-b border-gray-700">
+        <img alt="Logo" class="h-10 w-10 rounded-full object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm6nUdMss5fhhNsF7qVifw2cpj4hLl91IF0SmiArO-ZKvOAcdhXyhRpHwmnWyzoj40trIPXO8J8KU_3g8vwXm2WBV-AoaYNd8stuSgh2USnye_QxGb734lNnovZkVEPoevDgHm7p5ouMA_LbEnT4PLQc5XgqBAt7UZmcczt-D2bUGHUl7GLxhL-33AYoE6i0VXlVQ-vtH0w01ynyheqrksVH9mrP_9qQI6Wqf2JLKn4Q8xpuV_ltVBhkgX9ZjA_M-GGwMApi0thf02" />
+        <span class="font-bold text-xl">ACADEMY C.K.</span>
+      </div>
+      <nav class="flex-grow">
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="../index.html">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Aperçu</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="inscription.html">
+          <span class="material-symbols-outlined">person_add</span>
+          <span>Inscriptions</span>
+        </a>
+        <a class="sidebar-link active flex items-center p-2 rounded-lg space-x-3" href="liste-inscrits.html">
+          <span class="material-symbols-outlined">group</span>
+          <span>Liste des Inscrits</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="statistiques.html">
+          <span class="material-symbols-outlined">query_stats</span>
+          <span>Statistiques</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <span>Calendrier</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+          <span class="material-symbols-outlined">mail</span>
+          <span>Messagerie</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+          <span class="material-symbols-outlined">settings</span>
+          <span>Paramètres</span>
+        </a>
+      </nav>
+      <div>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+          <span class="material-symbols-outlined">logout</span>
+          <span>Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+    <main class="flex-1 p-8 overflow-y-auto">
+      <header class="flex justify-between items-center mb-8">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-800">Détails de l'Inscrit</h1>
+          <p class="text-gray-600 mt-2">Informations complètes de l'inscription</p>
+        </div>
+        <button onclick="window.history.back()" class="btn-primary px-4 py-2 rounded-lg font-semibold flex items-center space-x-2">
+          <span class="material-symbols-outlined">arrow_back</span>
+          <span>Retour</span>
+        </button>
+      </header>
+
+      <div class="max-w-4xl mx-auto space-y-6">
+        <!-- Informations de l'enfant -->
+        <div class="info-card">
+          <h2 class="text-xl font-bold text-red-500 mb-4">Informations de l'enfant</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+              <p class="text-gray-900 font-medium">Dupont</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+              <p class="text-gray-900 font-medium">Jean</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Date de naissance</label>
+              <p class="text-gray-900">15/03/2010</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Âge</label>
+              <p class="text-gray-900">14 ans</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Classe</label>
+              <p class="text-gray-900">3ème</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informations du parent/tuteur -->
+        <div class="info-card">
+          <h2 class="text-xl font-bold text-red-500 mb-4">Informations du parent/tuteur</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+              <p class="text-gray-900 font-medium">Dupont</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+              <p class="text-gray-900 font-medium">Marie</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
+              <p class="text-gray-900">+33 6 12 34 56 78</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <p class="text-gray-900">marie.dupont@email.com</p>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Adresse</label>
+              <p class="text-gray-900">123 Rue de la Paix, 75001 Paris, France</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Informations complémentaires -->
+        <div class="info-card">
+          <h2 class="text-xl font-bold text-red-500 mb-4">Informations complémentaires</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Programme souhaité</label>
+              <p class="text-gray-900">Football</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Contact d'urgence</label>
+              <p class="text-gray-900">Pierre Dupont - +33 6 98 76 54 32</p>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Informations médicales/Allergies</label>
+              <p class="text-gray-900">Aucune allergie connue. Asthme léger, inhalateur de secours disponible.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statut et réservation -->
+        <div class="info-card">
+          <h2 class="text-xl font-bold text-red-500 mb-4">Statut et réservation</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Statut du paiement</label>
+              <span class="inline-block px-3 py-1 text-xs font-semibold text-orange-700 bg-orange-100 rounded-full">
+                Non payé
+              </span>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Date de réservation</label>
+              <p class="text-gray-900">
+                <span class="text-green-600 font-medium">15/01/2025 à 14:00</span>
+              </p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Date d'inscription</label>
+              <p class="text-gray-900">10/01/2025</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Statut général</label>
+              <span class="inline-block px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full">
+                Inscrit
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="info-card">
+          <h2 class="text-xl font-bold text-red-500 mb-4">Actions</h2>
+          <div class="flex flex-wrap gap-4">
+            <button class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 flex items-center space-x-2">
+              <span class="material-symbols-outlined">payment</span>
+              <span>Gérer le paiement</span>
+            </button>
+            <button class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center space-x-2">
+              <span class="material-symbols-outlined">event_available</span>
+              <span>Modifier la réservation</span>
+            </button>
+            <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 flex items-center space-x-2">
+              <span class="material-symbols-outlined">edit</span>
+              <span>Modifier les informations</span>
+            </button>
+            <button class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center space-x-2">
+              <span class="material-symbols-outlined">print</span>
+              <span>Imprimer</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bouton Annuler -->
+        <div class="flex justify-center">
+          <button onclick="window.history.back()" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 flex items-center space-x-2">
+            <span class="material-symbols-outlined">arrow_back</span>
+            <span>Annuler</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>
+
