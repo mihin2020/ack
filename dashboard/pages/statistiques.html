@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Statistiques - Academy Charles Kabore</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style type="text/tailwindcss">
+    :root {
+      --red-500: #EF4444;
+      --orange-500: #F97316;
+      --gray-100: #F3F4F6;
+      --gray-200: #E5E7EB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-600: #4B5563;
+      --gray-700: #374151;
+      --gray-800: #1F2937;
+      --gray-900: #111827;
+      --white: #FFFFFF;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--gray-100);
+    }
+    .sidebar {
+      background-color: var(--gray-900);
+      color: var(--white);
+    }
+    .sidebar-link {
+      color: var(--gray-400);
+    }
+    .sidebar-link:hover,
+    .sidebar-link.active {
+      background-color: var(--gray-700);
+      color: var(--white);
+    }
+    .sidebar-link.active {
+      background-color: var(--red-500);
+    }
+    .btn-primary {
+      background-color: var(--red-500);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background-color: #D93E3E;
+    }
+    .text-red {
+      color: var(--red-500);
+    }
+    .text-orange {
+      color: var(--orange-500);
+    }
+    .bg-red-soft {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+    .bg-orange-soft {
+      background-color: rgba(249, 115, 22, 0.1);
+    }
+    .bg-green-soft {
+      background-color: rgba(34, 197, 94, 0.1);
+    }
+    .text-green-500 {
+      color: #22C55E;
+    }
+    .stat-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .stat-card.success {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    .stat-card.warning {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+    .stat-card.danger {
+      background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    }
+    .chart-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+  <div class="flex h-screen">
+    <aside class="sidebar w-64 flex flex-col p-4 space-y-4">
+      <div class="flex items-center space-x-2 pb-4 border-b border-gray-700">
+        <img alt="Logo" class="h-10 w-10 rounded-full object-cover"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm6nUdMss5fhhNsF7qVifw2cpj4hLl91IF0SmiArO-ZKvOAcdhXyhRPHwmnWyzoj40trIPXO8J8KU_3g8vwXm2WBV-AoaYNd8stuSgh2USnye_QxGb734lNnovZkVEPoevDgHm7p5ouMA_LbEnT4PLQc5XgqBAt7UZmcczt-D2bUGHUl7GLxhL-33AYoE6i0VXlVQ-vtH0w01ynyheqrksVH9mrP_9qQI6Wqf2JLKn4Q8xpuV_ltVBhkgX9ZjA_M-GGwMApi0thf02" />
+        <span class="font-bold text-xl">ACADEMY C.K.</span>
+      </div>
+      <nav class="flex-grow">
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="../index.html">
+          <span class="material-symbols-outlined">dashboard</span>
+          <span>Aperçu</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="inscription.html">
+          <span class="material-symbols-outlined">person_add</span>
+          <span>Inscriptions</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="liste-inscrits.html">
+          <span class="material-symbols-outlined">group</span>
+          <span>Liste des Inscrits</span>
+        </a>
+        <a class="sidebar-link active flex items-center p-2 rounded-lg space-x-3" href="statistiques.html">
+          <span class="material-symbols-outlined">query_stats</span>
+          <span>Statistiques</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+          <span class="material-symbols-outlined">calendar_month</span>
+          <span>Calendrier</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+          <span class="material-symbols-outlined">mail</span>
+          <span>Messagerie</span>
+        </a>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+          <span class="material-symbols-outlined">settings</span>
+          <span>Paramètres</span>
+        </a>
+      </nav>
+      <div>
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+          <span class="material-symbols-outlined">logout</span>
+          <span>Déconnexion</span>
+        </a>
+      </div>
+    </aside>
+    
+    <main class="flex-1 p-8 overflow-y-auto">
+      <header class="flex justify-between items-center mb-8">
+        <div>
+          <h1 class="text-3xl font-bold text-gray-800">📊 Statistiques</h1>
+          <p class="text-gray-600 mt-2">Analyse et visualisation des données de l'académie</p>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button onclick="refreshStats()" class="btn-primary px-4 py-2 rounded-lg font-semibold flex items-center space-x-2">
+            <span class="material-symbols-outlined">refresh</span>
+            <span>Actualiser</span>
+          </button>
+          <button onclick="exportStats()" class="px-4 py-2 bg-green-500 text-white rounded-lg font-semibold flex items-center space-x-2 hover:bg-green-600">
+            <span class="material-symbols-outlined">download</span>
+            <span>Exporter</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Cartes de statistiques principales -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="stat-card p-6 rounded-xl text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm opacity-90">Total Inscrits</p>
+              <p id="totalInscrits" class="text-3xl font-bold">0</p>
+            </div>
+            <div class="bg-white bg-opacity-20 p-3 rounded-full">
+              <span class="material-symbols-outlined text-2xl">group</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card success p-6 rounded-xl text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm opacity-90">Paiements Reçus</p>
+              <p id="totalPaiements" class="text-3xl font-bold">0</p>
+            </div>
+            <div class="bg-white bg-opacity-20 p-3 rounded-full">
+              <span class="material-symbols-outlined text-2xl">payments</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card warning p-6 rounded-xl text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm opacity-90">Réservations</p>
+              <p id="totalReservations" class="text-3xl font-bold">0</p>
+            </div>
+            <div class="bg-white bg-opacity-20 p-3 rounded-full">
+              <span class="material-symbols-outlined text-2xl">event_available</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card danger p-6 rounded-xl text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm opacity-90">Taux de Paiement</p>
+              <p id="tauxPaiement" class="text-3xl font-bold">0%</p>
+            </div>
+            <div class="bg-white bg-opacity-20 p-3 rounded-full">
+              <span class="material-symbols-outlined text-2xl">percent</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphiques principaux -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Répartition par âge -->
+        <div class="chart-container p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">📊 Répartition par Âge</h3>
+          <div style="height: 250px;">
+            <canvas id="ageChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Répartition par programme -->
+        <div class="chart-container p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">⚽ Programmes Populaires</h3>
+          <div style="height: 250px;">
+            <canvas id="programmeChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphiques secondaires -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Statut des paiements -->
+        <div class="chart-container p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">💰 Statut des Paiements</h3>
+          <div style="height: 250px;">
+            <canvas id="paiementChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Répartition par classe -->
+        <div class="chart-container p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">🎓 Répartition par Classe</h3>
+          <div style="height: 250px;">
+            <canvas id="classeChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graphiques avancés -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Évolution des inscriptions -->
+        <div class="chart-container p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">📈 Évolution des Inscriptions</h3>
+          <div style="height: 250px;">
+            <canvas id="evolutionChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Réservations par mois -->
+        <div class="chart-container p-6">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">📅 Réservations par Période</h3>
+          <div style="height: 250px;">
+            <canvas id="reservationChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tableau de statistiques détaillées -->
+      <div class="chart-container p-6">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">📋 Statistiques Détaillées</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-700 mb-3">👶 Tranches d'Âge</h4>
+            <div id="ageStats" class="space-y-2"></div>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-700 mb-3">⚽ Programmes</h4>
+            <div id="programmeStats" class="space-y-2"></div>
+          </div>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-gray-700 mb-3">🎓 Classes</h4>
+            <div id="classeStats" class="space-y-2"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/statistiques.js"></script>
+</body>
+
+</html>
