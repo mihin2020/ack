@@ -80,6 +80,49 @@
       font-weight: 600;
       margin-bottom: 12px;
     }
+    .calendrier-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .calendrier-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+    .calendrier-jour {
+      text-align: center;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6B7280;
+    }
+    .calendrier-date {
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #F9FAFB;
+    }
+    .calendrier-date:hover:not(.disabled) {
+      background: #FED7AA;
+    }
+    .calendrier-date.selected {
+      background: #F97316;
+      color: white;
+      font-weight: 600;
+    }
+    .calendrier-date.disabled {
+      background: #F3F4F6;
+      color: #D1D5DB;
+      cursor: not-allowed;
+    }
+    .calendrier-date.autre-mois {
+      color: #D1D5DB;
+    }
   </style>
 </head>
 
@@ -108,21 +151,14 @@
           <span class="material-symbols-outlined">query_stats</span>
           <span>Statistiques</span>
         </a>
-        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
-          <span class="material-symbols-outlined">calendar_month</span>
-          <span>Calendrier</span>
-        </a>
-        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
-          <span class="material-symbols-outlined">mail</span>
-          <span>Messagerie</span>
-        </a>
-        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+       
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="parametres.html">
           <span class="material-symbols-outlined">settings</span>
           <span>Paramètres</span>
         </a>
       </nav>
       <div>
-        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#" onclick="window.location.href='../login.html'; return false;">
           <span class="material-symbols-outlined">logout</span>
           <span>Déconnexion</span>
         </a>
@@ -181,6 +217,23 @@
                       <option>Terminale</option>
                     </select>
                   </div>
+                  <!-- Ajout du champ nombre de séances -->
+                  <div class="md:col-span-2">
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="block text-sm font-medium text-gray-700">Nombre total de séances achetées</label>
+                      <span id="montant-total" class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">Montant total : 0 FCFA</span>
+                    </div>
+                    <input type="number" min="1" class="w-full border border-orange-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Ex : 20" id="nb-seances-total" />
+                  </div>
+                  <!-- Planification des séances -->
+                  <div class="md:col-span-2 mt-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Planification des séances sur calendrier</label>
+                    <div class="flex items-center justify-between mb-3">
+                      <span class="text-sm text-gray-600">Séances restantes : <span id="seances-restantes" class="font-bold text-orange-500">0</span></span>
+                      <span class="text-xs text-gray-500">Max 7 séances par semaine</span>
+                    </div>
+                    <div id="calendrier-container" class="border border-orange-300 rounded-lg p-4 bg-white"></div>
+                  </div>
                 </div>
               </div>
 
@@ -193,7 +246,6 @@
               </div>
             </div>
           </div>
-
           <!-- Section Parent -->
           <div>
             <h3 class="text-lg font-semibold text-red-500 mb-2">Informations du parent / tuteur légal</h3>

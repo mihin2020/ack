@@ -201,10 +201,12 @@ function createAgeChart() {
 function createProgrammeChart() {
   const ctx = document.getElementById('programmeChart').getContext('2d');
   
-  // Calculer la répartition par programme
+  // Filtrer uniquement les inscrits au programme 'Football'
   const programmes = {};
   inscritsData.forEach(inscrit => {
-    programmes[inscrit.programme] = (programmes[inscrit.programme] || 0) + 1;
+    if (inscrit.programme && inscrit.programme.trim() === 'Football') {
+      programmes['Football'] = (programmes['Football'] || 0) + 1;
+    }
   });
 
   programmeChart = new Chart(ctx, {
@@ -212,21 +214,13 @@ function createProgrammeChart() {
     data: {
       labels: Object.keys(programmes),
       datasets: [{
-        label: 'Nombre d\'inscrits',
+        label: "Nombre d'inscrits",
         data: Object.values(programmes),
         backgroundColor: [
           '#FF6384',
-          '#36A2EB',
-          '#FFCE56',
-          '#4BC0C0',
-          '#9966FF'
         ],
         borderColor: [
           '#FF6384',
-          '#36A2EB',
-          '#FFCE56',
-          '#4BC0C0',
-          '#9966FF'
         ],
         borderWidth: 1
       }]
@@ -518,17 +512,11 @@ function updateAgeStats() {
 function updateProgrammeStats() {
   const programmeStats = document.getElementById('programmeStats');
   const programmes = {};
-  
-  // Initialiser tous les programmes possibles
-  const tousProgrammes = ['Football', 'Basketball', 'Natation', 'Autre'];
-  tousProgrammes.forEach(programme => {
-    programmes[programme] = 0;
-  });
-  
-  // Compter les inscriptions par programme
+
+  // Compter uniquement les inscrits au programme 'Football'
   inscritsData.forEach(inscrit => {
-    if (programmes.hasOwnProperty(inscrit.programme)) {
-      programmes[inscrit.programme]++;
+    if (inscrit.programme && inscrit.programme.trim() === 'Football') {
+      programmes['Football'] = (programmes['Football'] || 0) + 1;
     }
   });
 

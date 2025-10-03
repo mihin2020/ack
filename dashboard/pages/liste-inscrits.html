@@ -97,6 +97,54 @@
     .close:hover {
       color: black;
     }
+    .calendrier-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .calendrier-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+    .calendrier-jour {
+      text-align: center;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #6B7280;
+    }
+    .calendrier-date {
+      text-align: center;
+      padding: 10px;
+      font-size: 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: #F9FAFB;
+    }
+    .calendrier-date:hover:not(.disabled) {
+      background: #FED7AA;
+    }
+    .calendrier-date.selected {
+      background: #F97316;
+      color: white;
+      font-weight: 600;
+    }
+    .calendrier-date.passee {
+      background: #FEE2E2;
+      color: #DC2626;
+      font-weight: 600;
+    }
+    .calendrier-date.disabled {
+      background: #F3F4F6;
+      color: #D1D5DB;
+      cursor: not-allowed;
+    }
+    .calendrier-date.autre-mois {
+      color: #D1D5DB;
+    }
   </style>
 </head>
 
@@ -125,21 +173,14 @@
           <span class="material-symbols-outlined">query_stats</span>
           <span>Statistiques</span>
         </a>
-        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
-          <span class="material-symbols-outlined">calendar_month</span>
-          <span>Calendrier</span>
-        </a>
-        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
-          <span class="material-symbols-outlined">mail</span>
-          <span>Messagerie</span>
-        </a>
-        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+        
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="parametres.html">
           <span class="material-symbols-outlined">settings</span>
           <span>Paramètres</span>
         </a>
       </nav>
       <div>
-        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
+        <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#" onclick="window.location.href='../login.html'; return false;">
           <span class="material-symbols-outlined">logout</span>
           <span>Déconnexion</span>
         </a>
@@ -152,10 +193,10 @@
           <p class="text-gray-600 mt-2">Gestion des inscriptions et réservations</p>
         </div>
         <div class="flex items-center space-x-4">
-          <button class="btn-primary px-4 py-2 rounded-lg font-semibold flex items-center space-x-2" onclick="exportData()">
-            <span class="material-symbols-outlined">download</span>
-            <span>Exporter</span>
-          </button>
+          <a href="inscription.html" class="btn-primary px-4 py-2 rounded-lg font-semibold flex items-center space-x-2">
+            <span class="material-symbols-outlined">person_add</span>
+            <span>Nouvelle inscription</span>
+          </a>
           <button class="px-4 py-2 bg-blue-500 text-white rounded-lg font-semibold flex items-center space-x-2 hover:bg-blue-600" onclick="toggleFilters()">
             <span class="material-symbols-outlined">filter_list</span>
             <span>Filtres</span>
@@ -166,7 +207,7 @@
       <!-- Section Filtres -->
       <div id="filtersSection" class="bg-white rounded-xl shadow-md p-6 mb-6" style="display: none;">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-lg font-semibold text-gray-800">🔍 Filtres de Recherche</h3>
+          <h3 class="text-lg font-semibold text-gray-800"> Filtres de Recherche</h3>
           <button onclick="clearAllFilters()" class="px-3 py-1 text-sm text-red-500 hover:text-red-700 border border-red-300 rounded hover:bg-red-50">
             Effacer tout
           </button>
@@ -212,7 +253,7 @@
 
         <!-- Filtre par Réservation -->
         <div class="border-t pt-4">
-          <h4 class="text-md font-semibold text-gray-800 mb-3">📅 Filtre par Réservation</h4>
+          <h4 class="text-md font-semibold text-gray-800 mb-3">Filtre par Réservation</h4>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Type de filtre</label>
@@ -244,6 +285,7 @@
         </div>
       </div>
 
+     
       <div class="bg-white rounded-xl shadow-md overflow-hidden">
         <div class="overflow-x-auto">
           <div id="tableHeader" class="p-4 border-b bg-gray-50">
@@ -266,113 +308,13 @@
                 <th class="py-3 px-4 font-semibold text-gray-600 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody>
-              <tr class="border-b border-gray-200 hover:bg-gray-50">
-                <td class="py-3 px-4 font-medium text-gray-800">1</td>
-                <td class="py-3 px-4">Dupont</td>
-                <td class="py-3 px-4">Jean</td>
-                <td class="py-3 px-4 text-gray-500">15/03/2010</td>
-                <td class="py-3 px-4 text-gray-500">14 ans</td>
-                <td class="py-3 px-4">Marie Dupont</td>
-                <td class="py-3 px-4">
-                  <button onclick="openPaiementModal('Jean Dupont')" class="px-2 py-1 text-xs font-semibold text-orange-700 bg-orange-100 rounded-full hover:bg-orange-200">
-                    Non payé
-                  </button>
-                </td>
-                <td class="py-3 px-4">
-                  <div class="flex items-center space-x-2">
-                    <button onclick="openReservationModal('Jean Dupont')" class="text-gray-400 hover:text-gray-600" title="Réserver">
-                    <span class="material-symbols-outlined">event_available</span>
-                  </button>
-                    <span class="text-sm text-gray-400">Non réservé</span>
-                  </div>
-                </td>
-                <td class="py-3 px-4 text-center">
-                  <div class="flex justify-center space-x-2">
-                    <button onclick="openDetails('Jean Dupont')" class="text-blue-500 hover:text-blue-600 p-1" title="Détails">
-                      <span class="material-symbols-outlined">visibility</span>
-                    </button>
-                    <button onclick="editInscrit('Jean Dupont')" class="text-gray-500 hover:text-yellow-500 p-1" title="Modifier">
-                      <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <button onclick="deleteInscritFromTable('Jean Dupont')" class="text-gray-500 hover:text-red-500 p-1" title="Supprimer">
-                      <span class="material-symbols-outlined">delete</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr class="border-b border-gray-200 hover:bg-gray-50">
-                <td class="py-3 px-4 font-medium text-gray-800">2</td>
-                <td class="py-3 px-4">Martin</td>
-                <td class="py-3 px-4">Sophie</td>
-                <td class="py-3 px-4 text-gray-500">22/07/2012</td>
-                <td class="py-3 px-4 text-gray-500">12 ans</td>
-                <td class="py-3 px-4">Pierre Martin</td>
-                <td class="py-3 px-4">
-                  <button onclick="openPaiementModal('Sophie Martin')" class="px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full hover:bg-green-200">
-                    Payé
-                  </button>
-                </td>
-                <td class="py-3 px-4">
-                  <div class="flex items-center space-x-2">
-                    <button onclick="openReservationModal('Sophie Martin')" class="text-gray-400 hover:text-gray-600" title="Réserver">
-                    <span class="material-symbols-outlined">event_available</span>
-                  </button>
-                    <span class="text-sm text-gray-400">Non réservé</span>
-                  </div>
-                </td>
-                <td class="py-3 px-4 text-center">
-                  <div class="flex justify-center space-x-2">
-                    <button onclick="openDetails('Sophie Martin')" class="text-blue-500 hover:text-blue-600 p-1" title="Détails">
-                      <span class="material-symbols-outlined">visibility</span>
-                    </button>
-                    <button onclick="editInscrit('Sophie Martin')" class="text-gray-500 hover:text-yellow-500 p-1" title="Modifier">
-                      <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <button onclick="deleteInscritFromTable('Sophie Martin')" class="text-gray-500 hover:text-red-500 p-1" title="Supprimer">
-                      <span class="material-symbols-outlined">delete</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr class="border-b border-gray-200 hover:bg-gray-50">
-                <td class="py-3 px-4 font-medium text-gray-800">3</td>
-                <td class="py-3 px-4">Bernard</td>
-                <td class="py-3 px-4">Lucas</td>
-                <td class="py-3 px-4 text-gray-500">08/11/2008</td>
-                <td class="py-3 px-4 text-gray-500">16 ans</td>
-                <td class="py-3 px-4">Claire Bernard</td>
-                <td class="py-3 px-4">
-                  <button onclick="openPaiementModal('Lucas Bernard')" class="px-2 py-1 text-xs font-semibold text-orange-700 bg-orange-100 rounded-full hover:bg-orange-200">
-                    Non payé
-                  </button>
-                </td>
-                <td class="py-3 px-4">
-                  <div class="flex items-center space-x-2">
-                    <button onclick="openReservationModal('Lucas Bernard')" class="text-gray-400 hover:text-gray-600" title="Réserver">
-                      <span class="material-symbols-outlined">event_available</span>
-                    </button>
-                    <span class="text-sm text-gray-400">Non réservé</span>
-                  </div>
-                </td>
-                <td class="py-3 px-4 text-center">
-                  <div class="flex justify-center space-x-2">
-                    <button onclick="openDetails('Lucas Bernard')" class="text-blue-500 hover:text-blue-600 p-1" title="Détails">
-                      <span class="material-symbols-outlined">visibility</span>
-                    </button>
-                    <button onclick="editInscrit('Lucas Bernard')" class="text-gray-500 hover:text-yellow-500 p-1" title="Modifier">
-                      <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <button onclick="deleteInscritFromTable('Lucas Bernard')" class="text-gray-500 hover:text-red-500 p-1" title="Supprimer">
-                      <span class="material-symbols-outlined">delete</span>
-                    </button>
-                  </div>
-                </td>
-              </tr>
+            <tbody id="inscritsTableBody">
+              <!-- Les inscrits filtrés seront injectés ici par JS -->
             </tbody>
           </table>
         </div>
       </div>
+      <div id="inscritsPagination" class="flex justify-center mt-4"></div>
     </main>
   </div>
 
@@ -403,21 +345,44 @@
 
   <!-- Modal Réservation -->
   <div id="reservationModal" class="modal">
-    <div class="modal-content">
+    <div class="modal-content" style="max-width: 900px; max-height: 90vh; overflow-y: auto;">
       <span class="close" onclick="closeReservationModal()">&times;</span>
-      <h2 class="text-xl font-bold text-gray-800 mb-4">Réservation</h2>
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Gestion des séances et réservations</h2>
       <form>
         <div class="mb-4">
           <label class="block text-sm font-medium text-gray-700 mb-2">Enfant</label>
           <input type="text" id="enfantNomReservation" class="w-full border border-gray-300 rounded-lg px-3 py-2" readonly/>
         </div>
+        
+        <!-- Nombre de séances -->
         <div class="mb-4">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Date de réservation</label>
-          <input type="date" id="dateReservation" class="w-full border border-gray-300 rounded-lg px-3 py-2"/>
+          <div class="flex items-center justify-between mb-1">
+            <label class="block text-sm font-medium text-gray-700">Nombre total de séances</label>
+            <span id="montant-total-reservation" class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold">Montant total : 0 FCFA</span>
+          </div>
+          <input type="number" min="1" id="nb-seances-reservation" class="w-full border border-orange-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500" placeholder="Ex : 20" />
         </div>
-        <div class="flex justify-end space-x-2">
+
+        <!-- Planification des séances -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Planification des séances sur calendrier</label>
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-sm text-gray-600">Séances restantes : <span id="seances-restantes-reservation" class="font-bold text-orange-500">0</span></span>
+            <span class="text-xs text-gray-500">Max 7 séances par semaine</span>
+          </div>
+          <div id="calendrier-reservation" class="border border-orange-300 rounded-lg p-4 bg-white"></div>
+        </div>
+
+        <!-- Séances passées à reporter -->
+        <div id="seances-passees-section" class="mb-4 p-4 bg-red-50 rounded-lg" style="display: none;">
+          <h3 class="text-md font-semibold text-red-700 mb-2">⚠️ Séances passées non effectuées</h3>
+          <p class="text-xs text-gray-600 mb-3">Les dates suivantes sont passées. Vous pouvez les reporter.</p>
+          <div id="liste-seances-passees" class="space-y-2"></div>
+        </div>
+        
+        <div class="flex justify-end space-x-2 pt-4 border-t">
           <button type="button" onclick="closeReservationModal()" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">Annuler</button>
-          <button type="button" onclick="saveReservation()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Réserver</button>
+          <button type="button" onclick="saveReservation()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Enregistrer</button>
         </div>
       </form>
     </div>
@@ -548,7 +513,7 @@
       <div class="space-y-4">
         <!-- Informations de l'enfant -->
         <div class="bg-gray-50 p-4 rounded-lg">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3 text-red-500">👶 Informations de l'enfant</h3>
+          <h3 class="text-lg font-semibold text-gray-800 mb-3 text-red-500"> Informations de l'enfant</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
@@ -586,7 +551,7 @@
 
         <!-- Informations du parent -->
         <div class="bg-blue-50 p-4 rounded-lg">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3 text-blue-600">👨‍👩‍👧‍👦 Informations du parent/tuteur</h3>
+          <h3 class="text-lg font-semibold text-gray-800 mb-3 text-blue-600">Informations du parent/tuteur</h3>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
@@ -597,15 +562,15 @@
               <input type="text" id="editParentPrenom" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required/>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">📞 Téléphone</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Téléphone</label>
               <input type="tel" id="editTelephone" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required/>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">📧 Email</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
               <input type="email" id="editEmail" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required/>
             </div>
             <div class="md:col-span-2">
-              <label class="block text-sm font-medium text-gray-700 mb-1">🏠 Adresse</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> Adresse</label>
               <input type="text" id="editAdresse" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required/>
             </div>
           </div>
@@ -613,10 +578,10 @@
 
         <!-- Informations complémentaires -->
         <div class="bg-green-50 p-4 rounded-lg">
-          <h3 class="text-lg font-semibold text-gray-800 mb-3 text-green-600">📋 Informations complémentaires</h3>
+          <h3 class="text-lg font-semibold text-gray-800 mb-3 text-green-600"> Informations complémentaires</h3>
           <div class="space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">⚽ Programme souhaité</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> Programme souhaité</label>
               <select id="editProgramme" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" required>
                 <option value="">Sélectionner un programme</option>
                 <option value="Football">Football</option>
@@ -626,11 +591,11 @@
               </select>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">🚨 Contact d'urgence</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> Contact d'urgence</label>
               <input type="text" id="editContactUrgence" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" placeholder="Nom et numéro de téléphone"/>
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">🏥 Informations médicales / Allergies</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> Informations médicales / Allergies</label>
               <textarea id="editInfosMedicales" class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Veuillez spécifier toute condition médicale, allergie ou traitement en cours. Mentionnez 'Néant' si aucune."></textarea>
             </div>
           </div>
@@ -639,10 +604,10 @@
         <!-- Boutons d'action -->
         <div class="flex justify-end space-x-3 pt-4 border-t">
           <button type="button" onclick="closeEditModal()" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
-            ❌ Annuler
+             Annuler
           </button>
           <button type="button" onclick="saveEdit()" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
-            ✅ Enregistrer
+             Enregistrer
           </button>
         </div>
       </div>

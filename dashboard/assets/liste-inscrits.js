@@ -16,7 +16,13 @@ let inscritsData = [
     contactUrgence: 'Pierre Dupont - 01 98 76 54 32',
     infosMedicales: 'Néant',
     statutPaiement: 'non-paye',
-    dateReservation: null
+    dateReservation: null,
+    seances: {
+      total: 10,
+      reservees: ['2025-09-28', '2025-09-30', '2025-10-02', '2025-10-05'],  // Quelques dates passées pour test
+      effectuees: [],
+      reportees: []
+    }
   },
   {
     id: 2,
@@ -34,7 +40,13 @@ let inscritsData = [
     contactUrgence: 'Claire Martin - 02 87 65 43 21',
     infosMedicales: 'Allergie aux arachides',
     statutPaiement: 'paye',
-    dateReservation: null
+    dateReservation: null,
+    seances: {
+      total: 0,
+      reservees: [],
+      effectuees: [],
+      reportees: []
+    }
   },
   {
     id: 3,
@@ -52,12 +64,18 @@ let inscritsData = [
     contactUrgence: 'Paul Bernard - 03 76 54 32 10',
     infosMedicales: 'Asthme léger',
     statutPaiement: 'non-paye',
-    dateReservation: null
+    dateReservation: null,
+    seances: {
+      total: 0,
+      reservees: [],
+      effectuees: [],
+      reportees: []
+    }
   }
 ];
 
 let currentInscritId = null;
-let allInscritsData = [...inscritsData]; // Copie pour les filtres
+let allInscritsData = [...inscritsData];
 let filteredInscritsData = [...inscritsData];
 
 // Fonctions pour les modals
@@ -88,15 +106,255 @@ function savePaiementStatus() {
   closePaiementModal();
 }
 
+// Variables globales pour le calendrier de réservation
+let calendrierReservation = {
+  totalSeances: 0,
+  seancesRestantes: 0,
+  datesSelectionnees: [],
+  moisActuel: new Date(),
+  prixParSeance: 5000
+};
+
+function initCalendrierReservation() {
+  calendrierReservation.moisActuel = new Date();
+  calendrierReservation.moisActuel.setDate(1);
+  renderCalendrierReservation();
+}
+
 function openReservationModal(nomEnfant) {
   const inscrit = inscritsData.find(i => `${i.prenom} ${i.nom}` === nomEnfant);
   if (inscrit) {
     currentInscritId = inscrit.id;
     document.getElementById('enfantNomReservation').value = nomEnfant;
-    document.getElementById('dateReservation').value = inscrit.dateReservation || '';
+    document.getElementById('nb-seances-reservation').value = inscrit.seances.total || '';
+    
+    // Initialiser le calendrier avec les données de l'inscrit
+    calendrierReservation.totalSeances = inscrit.seances.total || 0;
+    calendrierReservation.datesSelectionnees = [...(inscrit.seances.reservees || [])];
+    
+    updateMontantTotalReservation();
+    initCalendrierReservation();
+    updateSeancesPassees();
+    
     document.getElementById('reservationModal').style.display = 'block';
   }
 }
+
+function updateMontantTotalReservation() {
+  const montant = calendrierReservation.totalSeances * calendrierReservation.prixParSeance;
+  document.getElementById('montant-total-reservation').textContent = `Montant total : ${montant.toLocaleString('fr-FR')} FCFA`;
+}
+
+function updateSeancesRestantesReservation() {
+  calendrierReservation.seancesRestantes = calendrierReservation.totalSeances - calendrierReservation.datesSelectionnees.length;
+  document.getElementById('seances-restantes-reservation').textContent = calendrierReservation.seancesRestantes;
+}
+
+function getNumeroSemaine(date) {
+  const d = new Date(date);
+  const jour = d.getDay() || 7;
+  d.setDate(d.getDate() + 4 - jour);
+  const anneeDebut = new Date(d.getFullYear(), 0, 1);
+  return Math.ceil((((d - anneeDebut) / 86400000) + 1) / 7);
+}
+
+function getDatesSemaine(date) {
+  const d = new Date(date);
+  const jour = d.getDay() || 7;
+  const lundi = new Date(d);
+  lundi.setDate(d.getDate() - jour + 1);
+  const dates = [];
+  for (let i = 0; i < 7; i++) {
+    const date = new Date(lundi);
+    date.setDate(lundi.getDate() + i);
+    dates.push(date.toISOString().split('T')[0]);
+  }
+  return dates;
+}
+
+function countSeancesSemaine(date) {
+  const datesSemaine = getDatesSemaine(date);
+  return calendrierReservation.datesSelectionnees.filter(d => datesSemaine.includes(d)).length;
+}
+
+function toggleDateReservation(dateStr) {
+  const index = calendrierReservation.datesSelectionnees.indexOf(dateStr);
+  if (index > -1) {
+    calendrierReservation.datesSelectionnees.splice(index, 1);
+  } else {
+    if (calendrierReservation.seancesRestantes > 0 && countSeancesSemaine(dateStr) < 7) {
+      calendrierReservation.datesSelectionnees.push(dateStr);
+    }
+  }
+  renderCalendrierReservation();
+  updateSeancesPassees();
+}
+
+function renderCalendrierReservation() {
+  const container = document.getElementById('calendrier-reservation');
+  if (!container) return;
+  
+  container.innerHTML = '';
+
+  // Navigation
+  const nav = document.createElement('div');
+  nav.className = 'calendrier-nav';
+  const moisNom = calendrierReservation.moisActuel.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
+  nav.innerHTML = `
+    <button type="button" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-sm" onclick="prevMoisReservation()">← Précédent</button>
+    <span class="font-semibold text-gray-800 capitalize">${moisNom}</span>
+    <button type="button" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-sm" onclick="nextMoisReservation()">Suivant →</button>
+  `;
+  container.appendChild(nav);
+
+  // Grille du calendrier
+  const grid = document.createElement('div');
+  grid.className = 'calendrier-grid';
+
+  // En-têtes des jours
+  const jours = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+  jours.forEach(jour => {
+    const jourDiv = document.createElement('div');
+    jourDiv.className = 'calendrier-jour';
+    jourDiv.textContent = jour;
+    grid.appendChild(jourDiv);
+  });
+
+  // Calculer les dates du calendrier
+  const premierJour = new Date(calendrierReservation.moisActuel.getFullYear(), calendrierReservation.moisActuel.getMonth(), 1);
+  const dernierJour = new Date(calendrierReservation.moisActuel.getFullYear(), calendrierReservation.moisActuel.getMonth() + 1, 0);
+  const premierJourSemaine = premierJour.getDay() || 7;
+
+  // Dates du mois précédent
+  const joursAvant = premierJourSemaine - 1;
+  for (let i = joursAvant; i > 0; i--) {
+    const date = new Date(premierJour);
+    date.setDate(date.getDate() - i);
+    const dateDiv = createDateElementReservation(date, true);
+    grid.appendChild(dateDiv);
+  }
+
+  // Dates du mois actuel
+  for (let jour = 1; jour <= dernierJour.getDate(); jour++) {
+    const date = new Date(calendrierReservation.moisActuel.getFullYear(), calendrierReservation.moisActuel.getMonth(), jour);
+    const dateDiv = createDateElementReservation(date, false);
+    grid.appendChild(dateDiv);
+  }
+
+  // Dates du mois suivant pour compléter la grille
+  const totalCases = Math.ceil((joursAvant + dernierJour.getDate()) / 7) * 7;
+  const joursApres = totalCases - (joursAvant + dernierJour.getDate());
+  for (let i = 1; i <= joursApres; i++) {
+    const date = new Date(calendrierReservation.moisActuel.getFullYear(), calendrierReservation.moisActuel.getMonth() + 1, i);
+    const dateDiv = createDateElementReservation(date, true);
+    grid.appendChild(dateDiv);
+  }
+
+  container.appendChild(grid);
+  updateSeancesRestantesReservation();
+}
+
+function createDateElementReservation(date, autreMois) {
+  const dateDiv = document.createElement('div');
+  dateDiv.className = 'calendrier-date';
+  dateDiv.textContent = date.getDate();
+
+  const dateStr = date.toISOString().split('T')[0];
+  dateDiv.setAttribute('data-date', dateStr);
+  
+  const aujourdhui = new Date();
+  aujourdhui.setHours(0, 0, 0, 0);
+  const estPasse = date < aujourdhui;
+
+  if (autreMois) {
+    dateDiv.classList.add('autre-mois');
+  }
+
+  if (calendrierReservation.datesSelectionnees.includes(dateStr)) {
+    if (estPasse && !autreMois) {
+      dateDiv.classList.add('passee');
+    } else {
+      dateDiv.classList.add('selected');
+    }
+  }
+
+  // Vérifier si le calendrier est actif
+  const calendrierActif = calendrierReservation.totalSeances >= 1;
+  
+  // Vérifier si la date peut être sélectionnée
+  const seancesSemaine = countSeancesSemaine(dateStr);
+  const peutSelectionner = calendrierActif && !autreMois && (calendrierReservation.datesSelectionnees.includes(dateStr) || (!estPasse && calendrierReservation.seancesRestantes > 0 && seancesSemaine < 7));
+
+  if (!peutSelectionner) {
+    dateDiv.classList.add('disabled');
+  } else {
+    dateDiv.addEventListener('click', () => {
+      toggleDateReservation(dateStr);
+    });
+  }
+
+  return dateDiv;
+}
+
+function prevMoisReservation() {
+  calendrierReservation.moisActuel.setMonth(calendrierReservation.moisActuel.getMonth() - 1);
+  renderCalendrierReservation();
+}
+
+function nextMoisReservation() {
+  calendrierReservation.moisActuel.setMonth(calendrierReservation.moisActuel.getMonth() + 1);
+  renderCalendrierReservation();
+}
+
+function updateSeancesPassees() {
+  const aujourdhui = new Date();
+  aujourdhui.setHours(0, 0, 0, 0);
+  
+  const seancesPassees = calendrierReservation.datesSelectionnees.filter(date => {
+    const d = new Date(date);
+    return d < aujourdhui;
+  });
+
+  const section = document.getElementById('seances-passees-section');
+  const liste = document.getElementById('liste-seances-passees');
+
+  if (seancesPassees.length > 0) {
+    section.style.display = 'block';
+    liste.innerHTML = seancesPassees.map(date => `
+      <div class="flex items-center justify-between bg-white p-2 rounded border border-red-200">
+        <span class="text-sm text-red-700 font-medium">${new Date(date).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</span>
+        <button type="button" onclick="reporterSeance('${date}')" class="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600">
+          Reporter
+        </button>
+      </div>
+    `).join('');
+  } else {
+    section.style.display = 'none';
+  }
+}
+
+function reporterSeance(dateAncienne) {
+  // Retirer la date passée
+  const index = calendrierReservation.datesSelectionnees.indexOf(dateAncienne);
+  if (index > -1) {
+    calendrierReservation.datesSelectionnees.splice(index, 1);
+    renderCalendrierReservation();
+    updateSeancesPassees();
+    alert('Sélectionnez une nouvelle date sur le calendrier pour reporter cette séance.');
+  }
+}
+
+// Gestion du changement du nombre de séances
+document.addEventListener('DOMContentLoaded', function() {
+  const nbSeancesInput = document.getElementById('nb-seances-reservation');
+  if (nbSeancesInput) {
+    nbSeancesInput.addEventListener('input', function() {
+      calendrierReservation.totalSeances = parseInt(this.value) || 0;
+      updateMontantTotalReservation();
+      renderCalendrierReservation();
+    });
+  }
+});
 
 function closeReservationModal() {
   document.getElementById('reservationModal').style.display = 'none';
@@ -105,10 +363,17 @@ function closeReservationModal() {
 
 function saveReservation() {
   if (currentInscritId) {
-    const date = document.getElementById('dateReservation').value;
     const inscrit = inscritsData.find(i => i.id === currentInscritId);
     if (inscrit) {
-      inscrit.dateReservation = date;
+      inscrit.seances.total = calendrierReservation.totalSeances;
+      inscrit.seances.reservees = [...calendrierReservation.datesSelectionnees];
+      
+      // Mettre à jour dateReservation pour compatibilité (prochaine séance)
+      const prochaine = inscrit.seances.reservees
+        .filter(date => new Date(date) >= new Date())
+        .sort()[0];
+      inscrit.dateReservation = prochaine || null;
+      
       updateTableRow(currentInscritId);
     }
   }
@@ -526,54 +791,6 @@ function updateFilterResults() {
   }
 }
 
-// Fonction pour exporter les données
-function exportData() {
-  const dataToExport = filteredInscritsData.length > 0 ? filteredInscritsData : allInscritsData;
-  const csvContent = generateCSV(dataToExport);
-  downloadCSV(csvContent, 'inscrits_academy.csv');
-}
-
-// Fonction pour générer le CSV
-function generateCSV(data) {
-  const headers = ['Nom', 'Prénom', 'Date de naissance', 'Âge', 'Classe', 'Parent/Tuteur', 'Téléphone', 'Email', 'Adresse', 'Programme', 'Contact urgence', 'Infos médicales', 'Statut paiement', 'Date réservation'];
-  const csvRows = [headers.join(',')];
-  
-  data.forEach(inscrit => {
-    const row = [
-      inscrit.nom,
-      inscrit.prenom,
-      inscrit.dateNaissance,
-      inscrit.age,
-      inscrit.classe,
-      inscrit.parent,
-      inscrit.telephone,
-      inscrit.email,
-      inscrit.adresse,
-      inscrit.programme,
-      inscrit.contactUrgence,
-      inscrit.infosMedicales,
-      inscrit.statutPaiement === 'paye' ? 'Payé' : 'Non payé',
-      inscrit.dateReservation || 'Non réservé'
-    ];
-    csvRows.push(row.join(','));
-  });
-  
-  return csvRows.join('\n');
-}
-
-// Fonction pour télécharger le CSV
-function downloadCSV(csvContent, filename) {
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement('a');
-  const url = URL.createObjectURL(blob);
-  link.setAttribute('href', url);
-  link.setAttribute('download', filename);
-  link.style.visibility = 'hidden';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
 // Fonction pour mettre à jour les données quand on modifie un inscrit
 function refreshData() {
   allInscritsData = [...inscritsData];
@@ -606,4 +823,3 @@ window.onclick = function(event) {
     closeEditModal();
   }
 }
-

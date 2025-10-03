@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres - Gestion des utilisateurs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --red-500: #EF4444;
+            --orange-500: #F97316;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --gray-600: #4B5563;
+            --gray-700: #374151;
+            --gray-800: #1F2937;
+            --gray-900: #111827;
+            --white: #FFFFFF;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--gray-100);
+        }
+        .sidebar {
+            background-color: var(--gray-900);
+            color: var(--white);
+        }
+        .sidebar-link {
+            color: var(--gray-400);
+        }
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background-color: var(--gray-700);
+            color: var(--white);
+        }
+        .sidebar-link.active {
+            background-color: var(--red-500);
+        }
+        .btn-primary {
+            background-color: var(--red-500);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background-color: #D93E3E;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+<div class="flex h-screen">
+    <aside class="sidebar w-64 flex flex-col p-4 space-y-4">
+        <div class="flex items-center space-x-2 pb-4 border-b border-gray-700">
+            <img alt="Logo" class="h-10 w-10 rounded-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBm6nUdMss5fhhNsF7qVifw2cpj4hLl91IF0SmiArO-ZKvOAcdhXyhRpHwmnWyzoj40trIPXO8J8KU_3g8vwXm2WBV-AoaYNd8stuSgh2USnye_QxGb734lNnovZkVEPoevDgHm7p5ouMA_LbEnT4PLQc5XgqBAt7UZmcczt-D2bUGHUl7GLxhL-33AYoE6i0VXlVQ-vtH0w01ynyheqrksVH9mrP_9qQI6Wqf2JLKn4Q8xpuV_ltVBhkgX9ZjA_M-GGwMApi0thf02" />
+            <span class="font-bold text-xl">ACADEMY C.K.</span>
+        </div>
+        <nav class="flex-grow">
+            <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="../index.html">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span>Aperçu</span>
+            </a>
+            <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="inscription.html">
+                <span class="material-symbols-outlined">person_add</span>
+                <span>Inscriptions</span>
+            </a>
+            <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="liste-inscrits.html">
+                <span class="material-symbols-outlined">group</span>
+                <span>Liste des Inscrits</span>
+            </a>
+            <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="statistiques.html">
+                <span class="material-symbols-outlined">query_stats</span>
+                <span>Statistiques</span>
+            </a>
+            <a class="sidebar-link active flex items-center p-2 rounded-lg space-x-3" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span>Paramètres</span>
+            </a>
+        </nav>
+        <div>
+            <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#" onclick="window.location.href='../login.html'; return false;">
+                <span class="material-symbols-outlined">logout</span>
+                <span>Déconnexion</span>
+            </a>
+        </div>
+    </aside>
+    <main class="flex-1 p-8 overflow-y-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Gestion des utilisateurs</h1>
+        <div class="bg-white rounded-xl shadow-md p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-gray-700">Liste des utilisateurs</h2>
+                <button id="btn-ajouter-user" class="btn-primary px-4 py-2 rounded-lg font-semibold flex items-center space-x-2">
+                    <span class="material-symbols-outlined">person_add</span>
+                    <span>Ajouter un utilisateur</span>
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="py-3 px-4 font-semibold text-gray-600">Nom</th>
+                            <th class="py-3 px-4 font-semibold text-gray-600">Prénom</th>
+                            <th class="py-3 px-4 font-semibold text-gray-600">Email</th>
+                            <th class="py-3 px-4 font-semibold text-gray-600">Numéro</th>
+                            <th class="py-3 px-4 font-semibold text-gray-600">Rôle</th>
+                            <th class="py-3 px-4 font-semibold text-gray-600">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list">
+                        <!-- Utilisateurs générés dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Modal d'ajout d'utilisateur -->
+        <div id="modal-ajout-user" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-xl shadow-lg p-8 w-full max-w-2xl relative">
+                <span class="absolute top-4 right-6 text-2xl text-gray-400 cursor-pointer" id="close-modal-ajout">&times;</span>
+                <h2 class="text-xl font-semibold mb-6">Ajouter un utilisateur</h2>
+                <form id="form-ajout-user" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="nom" class="block font-medium mb-2">Nom</label>
+                        <input type="text" id="nom" name="nom" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    </div>
+                    <div>
+                        <label for="prenom" class="block font-medium mb-2">Prénom</label>
+                        <input type="text" id="prenom" name="prenom" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    </div>
+                    <div>
+                        <label for="numero" class="block font-medium mb-2">Numéro</label>
+                        <input type="text" id="numero" name="numero" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    </div>
+                    <div>
+                        <label for="email" class="block font-medium mb-2">Email</label>
+                        <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    </div>
+                    <div>
+                        <label for="password" class="block font-medium mb-2">Mot de passe</label>
+                        <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    </div>
+                    <div>
+                        <label for="confirm-password" class="block font-medium mb-2">Confirmer le mot de passe</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    </div>
+                    <div>
+                        <label for="role" class="block font-medium mb-2">Rôle</label>
+                        <select id="role" name="role" required class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option value="admin">Administrateur</option>
+                            <option value="gestion">Gestionnaire</option>
+                            <option value="secretaire">Secrétaire</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button type="submit" class="btn-primary px-6 py-2 rounded-lg font-semibold w-full">Ajouter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Section autorisations -->
+        <div class="bg-white rounded-xl shadow-md p-8 mt-10">
+            <h2 class="text-xl font-semibold text-gray-700 mb-6">Autorisations par rôle</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="py-3 px-4 font-semibold text-gray-600">Action</th>
+                            <th class="py-3 px-4 font-semibold text-gray-600">Administrateur</th>
+                            <th class="py-3 px-4 font-semibold text-gray-600">Gestionnaire</th>
+                            <th class="py-3 px-4 font-semibold text-gray-600">Secrétaire</th>
+                        </tr>
+                    </thead>
+                    <tbody id="permissions-list">
+                        <!-- Autorisations générées dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+<script src="../assets/parametres.js"></script>
+</body>
+</html>
