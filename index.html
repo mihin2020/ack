@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Academy Charles Kabore</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#DC2626", // Red color scheme
+                        secondary: "#F97316",
+                        "background-light": "#F9FAFB",
+                        "background-dark": "#1F2937",
+                        "section-light": "#FFFFFF",
+                        "section-dark": "#111827",
+                    },
+                    fontFamily: {
+                        display: ["Plus Jakarta Sans"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .social-icon:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-800 dark:text-slate-200">
+    <div class="flex flex-col min-h-screen">
+        <header
+            class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-slate-200/50 dark:border-slate-800/50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center gap-4">
+                        <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_6_319)">
+                                <path
+                                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                                    fill="currentColor"></path>
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_6_319">
+                                    <rect fill="white" height="48" width="48"></rect>
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Academy Charles Kabore</h1>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-6">
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Accueil</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#mot-promoteur">À
+                            propos</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors"
+                            href="#actualites">Actualités</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#galerie">Galerie</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors" href="#contact">Contact</a>
+                        <a class="text-sm font-medium transition-colors bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow-md" href="#">
+                            Inscription
+                        </a>
+                        <a class="text-sm font-medium transition-colors bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg shadow-md" href="reservation.html">
+                            Réservation
+                        </a>
+                    </nav>
+                    <button class="md:hidden flex items-center">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <main class="flex-grow">
+            <section class="relative min-h-[70vh] flex items-center justify-center bg-cover bg-center bg-slate-800"
+                style='background-image: linear-gradient(rgba(27, 36, 48, 0.8), rgba(27, 36, 48, 0.9)), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDTVl9Ttmv6KMmRWuAnmvHdFds4Y-Lsv8rNabT1k18w7KEIhIsuzjBLGjFcDzCTOtTnIHzJNXIZkdhu4_jfhFpw4QmXpxpy0Ek5wiI88EXorIq1haeBSYnKCsyWqPKF0DDzgEK5hH6-kVA8ZEtoBRzifVsNIvh0b7yGx9J5_HtdlzH-yQHYGS9UPjamnxvzVWKImDyEboQ8TZVjyqyFSZ-TWQfY8LmI1wB9WsbLxBA7lCdHZQkRvem4tYA6eBP5fVB8oRy7a5JuGArI");'>
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+                    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tighter leading-tight">ACADÉMIE CHARLES
+                        KABORÉ</h1>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg md:text-xl font-light">Former les champions de demain, sur
+                        le terrain et dans la vie.</p>
+                    <a class="mt-8 inline-flex items-center justify-center rounded-lg px-8 py-3 text-base font-bold bg-primary text-white hover:bg-primary/90 transition-colors"
+                        href="#conditions-tarifs">
+                        Rejoignez l'aventure
+                    </a>
+                </div>
+            </section>
+            <section class="py-16 sm:py-24 bg-section-light dark:bg-section-dark" id="mot-promoteur">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">À
+                            Propos de l'Académie</h2>
+                        <p class="mt-4 max-w-2xl mx-auto text-lg leading-8 text-slate-600 dark:text-slate-400">Découvrez
+                            la vision et la mission qui animent notre académie.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="w-full">
+                            <img alt="Promoter" class="rounded-xl shadow-lg w-full h-auto object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJT8vWqYf_bYnE24nQ3bW2mH48z3H5D1N5f6oBq7d-t2u0r5A9E6iB4G7f9H3C2d-v1e8P1a1L1a0M7a5B6c-v0i1j0a2" />
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Le mot du Promoteur</h3>
+                            <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
+                                "Passionné par le football et convaincu de son pouvoir éducatif, j'ai créé cette
+                                académie pour offrir aux jeunes talents un environnement où ils peuvent s'épanouir, non
+                                seulement en tant que joueurs, mais aussi en tant qu'individus. Notre mission est de
+                                former la prochaine génération de champions, sur le terrain et dans la vie."
+                            </p>
+                            <p class="mt-4 text-xl font-bold text-slate-800 dark:text-white">Charles Kaboré</p>
+                            <p class="text-md text-primary">Fondateur &amp; Ancien Capitaine des Étalons</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark/50" id="nos-programmes">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Nos
+                        Programmes</h2>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg leading-8 text-slate-600 dark:text-slate-400">Des
+                        programmes conçus pour le développement technique, tactique et humain de chaque enfant.</p>
+                </div>
+            </section>
+            <section class="py-16 sm:py-24 bg-section-light dark:bg-section-dark" id="objectif">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Notre
+                            Objectif</h2>
+                        <p class="mt-4 max-w-3xl mx-auto text-lg leading-8 text-slate-600 dark:text-slate-400">Notre
+                            objectif est de fournir une formation footballistique d'excellence tout en inculquant des
+                            valeurs fortes comme le respect, la discipline et l'esprit d'équipe. Nous visons à
+                            développer le plein potentiel de chaque jeune, tant sur le plan sportif que personnel.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark/50" id="conditions-tarifs">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                            Conditions d'Adhésion et Tarifs</h2>
+                        <p class="mt-4 max-w-2xl mx-auto text-lg leading-8 text-slate-600 dark:text-slate-400">
+                            Rejoignez-nous ! Des formules simples et accessibles pour tous les passionnés.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <div
+                            class="flex flex-col gap-6 rounded-xl border-2 border-primary bg-white dark:bg-background-dark p-8 shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">INSCRIPTION ANNUELLE</h3>
+                            <p class="flex items-baseline gap-2">
+                                <span
+                                    class="text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">20,000</span>
+                                <span class="text-lg font-semibold text-slate-500 dark:text-slate-400">FCFA</span>
+                            </p>
+                            <a class="w-full inline-flex items-center justify-center rounded-lg px-4 py-3 text-sm font-bold bg-primary text-white hover:bg-primary/90 transition-colors"
+                                href="#">S'inscrire maintenant</a>
+                            <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                                <li class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span> Âge : 5 à
+                                    13 ans
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span> Équipement
+                                    complet inclus
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span> Accès à
+                                    toutes les sessions d'entraînement
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-primary">check_circle</span> Suivi
+                                    personnalisé par des coachs certifiés
+                                </li>
+                            </ul>
+                        </div>
+                        <div
+                            class="flex flex-col gap-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark p-8 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">ABONNEMENT MENSUEL</h3>
+                            <p class="flex items-baseline gap-2">
+                                <span
+                                    class="text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white">5,000</span>
+                                <span class="text-lg font-semibold text-slate-500 dark:text-slate-400">FCFA/mois</span>
+                            </p>
+                            <a class="w-full inline-flex items-center justify-center rounded-lg px-4 py-3 text-sm font-bold bg-secondary text-white hover:bg-secondary/90 transition-colors"
+                                href="#">Choisir cette formule</a>
+                            <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+                                <li class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-secondary">check_circle</span>
+                                    Flexibilité maximale
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-secondary">check_circle</span> Idéal
+                                    pour découvrir l'académie
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <span class="material-symbols-outlined text-secondary">check_circle</span> Paiement
+                                    mensuel simplifié
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="py-16 sm:py-24 bg-section-light dark:bg-section-dark" id="actualites">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                            Actualités</h2>
+                        <p class="mt-4 max-w-2xl mx-auto text-lg leading-8 text-slate-600 dark:text-slate-400">Les
+                            dernières nouvelles de l'académie.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div
+                            class="bg-white dark:bg-background-dark rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                            <img alt="Article 1" class="w-full h-48 object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9e0f1g2h3i4j5k6l7m8n9o0p1q2r3s4t5u6v7w8x9y0z1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6" />
+                            <div class="p-6">
+                                <p class="text-sm text-primary mb-2">15 JUILLET 2024</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Tournoi
+                                    Inter-quartiers</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">Nos jeunes U13 ont brillamment
+                                    remporté le tournoi inter-quartiers de Ouagadougou.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-background-dark rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                            <img alt="Article 2" class="w-full h-48 object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFg7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1p2q3r4" />
+                            <div class="p-6">
+                                <p class="text-sm text-primary mb-2">02 AOÛT 2024</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Visite de Charles
+                                    Kaboré</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">Le fondateur est venu encourager
+                                    les académiciens et partager son expérience.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-background-dark rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                            <img alt="Article 3" class="w-full h-48 object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8c9d0e1f2g3h4i5j6k7l8m9n0o1p2q3r4s5t6u7v8w9x0y1z2a3b4c5d6e7f8g9h0i1j2k3l4m5n6o" />
+                            <div class="p-6">
+                                <p class="text-sm text-primary mb-2">20 AOÛT 2024</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Inscriptions Ouvertes
+                                </h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">La nouvelle saison approche ! Les
+                                    inscriptions pour 2024-2025 sont officiellement ouvertes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="py-16 sm:py-24 bg-background-light dark:bg-background-dark/50" id="galerie">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Galerie
+                            Photo</h2>
+                        <p class="mt-4 max-w-2xl mx-auto text-lg leading-8 text-slate-600 dark:text-slate-400">Plongez
+                            dans l'univers de notre académie.</p>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="overflow-hidden rounded-lg">
+                            <img alt="Galerie 1"
+                                class="h-auto max-w-full transform hover:scale-110 transition-transform duration-300"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCY0iP2p7kG0a4r5O6E7f8B9aA1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f" />
+                        </div>
+                        <div class="overflow-hidden rounded-lg">
+                            <img alt="Galerie 2"
+                                class="h-auto max-w-full transform hover:scale-110 transition-transform duration-300"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2d1z4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1p2q3" />
+                        </div>
+                        <div class="overflow-hidden rounded-lg">
+                            <img alt="Galerie 3"
+                                class="h-auto max-w-full transform hover:scale-110 transition-transform duration-300"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1p" />
+                        </div>
+                        <div class="overflow-hidden rounded-lg">
+                            <img alt="Galerie 4"
+                                class="h-auto max-w-full transform hover:scale-110 transition-transform duration-300"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f2g3h4i5j6k7l8m9n0o1p2q3r" />
+                        </div>
+                        <div class="overflow-hidden rounded-lg">
+                            <img alt="Galerie 5"
+                                class="h-auto max-w-full transform hover:scale-110 transition-transform duration-300"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5b6c7d8e9f0g1h2i3j4k5l6m7n8o9p0q1r2s3t4u5v6w7x8y9z0a1b2c3d4e5f6g7h8i9j0k1l2m3n4" />
+                        </div>
+                        <div class="overflow-hidden rounded-lg">
+                            <img alt="Galerie 6"
+                                class="h-auto max-w-full transform hover:scale-110 transition-transform duration-300"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8c9d0e1f2g3h4i5j6k7l8m9n0o1p2q3r4s5t6u7v8w9x0y1z2a3b4c5d6e7f8g9h0i1j2k3l4m5n6o" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="py-16 sm:py-24 bg-section-light dark:bg-section-dark" id="contact">
+                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
+                            Contactez-nous</h2>
+                        <p class="mt-4 max-w-2xl mx-auto text-lg leading-8 text-slate-600 dark:text-slate-400">Une
+                            question ? Une inscription ? N'hésitez pas à nous contacter.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div>
+                            <form action="#" class="space-y-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                                        for="name">Nom complet</label>
+                                    <div class="mt-1">
+                                        <input autocomplete="name"
+                                            class="block w-full rounded-md border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                                            id="name" name="name" type="text" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                                        for="email">Adresse e-mail</label>
+                                    <div class="mt-1">
+                                        <input autocomplete="email"
+                                            class="block w-full rounded-md border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                                            id="email" name="email" type="email" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300"
+                                        for="message">Message</label>
+                                    <div class="mt-1">
+                                        <textarea
+                                            class="block w-full rounded-md border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+                                            id="message" name="message" rows="4"></textarea>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button
+                                        class="w-full inline-flex items-center justify-center rounded-lg px-6 py-3 text-base font-bold bg-primary text-white hover:bg-primary/90 transition-colors"
+                                        type="submit">
+                                        Envoyer le message
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="flex flex-col justify-center space-y-6">
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary text-3xl">call</span>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Téléphone</h3>
+                                    <p class="text-slate-600 dark:text-slate-400">+226 00 00 00 00</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary text-3xl">mail</span>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Email</h3>
+                                    <p class="text-slate-600 dark:text-slate-400">contact@ack-academie.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary text-3xl">groups</span>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Réseaux Sociaux
+                                    </h3>
+                                    <div class="flex gap-4 mt-2">
+                                        <a class="text-slate-500 hover:text-primary social-icon" href="#">
+                                            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path clip-rule="evenodd"
+                                                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                                                    fill-rule="evenodd"></path>
+                                            </svg>
+                                        </a>
+                                        <a class="text-slate-500 hover:text-primary social-icon" href="#">
+                                            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path
+                                                    d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="w-full bg-slate-900 text-slate-300 py-12">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-white mb-2">Localisation</h3>
+                    <p>OUAGA 2000 - Côté opposé de la salle des conférences</p>
+                </div>
+                <div class="flex justify-center flex-wrap gap-6 mb-6">
+                    <a class="text-sm hover:text-primary transition-colors" href="#">Accueil</a>
+                    <a class="text-sm hover:text-primary transition-colors" href="#mot-promoteur">À propos</a>
+                    <a class="text-sm hover:text-primary transition-colors" href="#actualites">Actualités</a>
+                    <a class="text-sm hover:text-primary transition-colors" href="#galerie">Galerie</a>
+                    <a class="text-sm hover:text-primary transition-colors" href="#contact">Contact</a>
+                </div>
+                <div class="flex justify-center gap-4 mb-6">
+                    <a class="text-slate-400 hover:text-primary social-icon" href="#">
+                        <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path clip-rule="evenodd"
+                                d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <a class="text-slate-400 hover:text-primary social-icon" href="#">
+                        <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-sm text-slate-400">© 2024 Academy Charles Kabore. Tous droits réservés.</p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

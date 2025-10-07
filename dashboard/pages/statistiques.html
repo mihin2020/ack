@@ -121,6 +121,21 @@
           <span>Paramètres</span>
         </a>
       </nav>
+      
+      <!-- Section Utilisateur Connecté -->
+      <div class="border-t border-gray-700 pt-4 mb-4">
+        <div class="flex items-center space-x-3 p-3 bg-gray-800 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors" data-user-section>
+          <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+            <img data-user-avatar class="w-full h-full rounded-full object-cover hidden" alt="Avatar" />
+            <span class="material-symbols-outlined text-white">person</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-white truncate" data-user-name>Admin User</div>
+            <div class="text-xs text-gray-400 truncate" data-user-role>Administrateur</div>
+          </div>
+        </div>
+      </div>
+      
       <div>
         <a class="sidebar-link flex items-center p-2 rounded-lg space-x-3" href="#">
           <span class="material-symbols-outlined">logout</span>
@@ -277,6 +292,7 @@
   </div>
 
   <script src="../assets/statistiques.js"></script>
+  <script src="../assets/user-info.js"></script>
 </body>
 
 </html>
