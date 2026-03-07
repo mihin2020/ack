@@ -75,16 +75,24 @@
         .text-green-500 {
             color: #22C55E;
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-gray-100">
-    <div class="flex h-screen">
+<body class="bg-gray-100" x-data="{ sidebarOpen: false }">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Overlay mobile -->
+        <div x-show="sidebarOpen" x-cloak x-transition:enter="transition-opacity ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition-opacity ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @click="sidebarOpen = false" class="fixed inset-0 bg-black/50 z-40 lg:hidden" aria-hidden="true"></div>
         <!-- Sidebar -->
-        <aside class="sidebar w-64 flex flex-col p-4 space-y-4">
-            <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-2 pb-4 border-b border-gray-700">
-                <x-logo-ack class="h-12 w-auto object-contain" />
-                <span class="font-bold text-lg text-white">Academy Charles Kabore</span>
-            </a>
+        <aside class="sidebar fixed lg:static inset-y-0 left-0 z-50 w-64 flex flex-col p-4 space-y-4 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-out flex-shrink-0" :class="{ 'translate-x-0': sidebarOpen }">
+            <div class="flex items-center justify-between pb-4 border-b border-gray-700">
+                <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-2 min-w-0">
+                    <x-logo-ack class="h-10 w-10 sm:h-12 sm:w-auto object-contain shrink-0" />
+                    <span class="font-bold text-base lg:text-lg text-white truncate">Academy Charles Kabore</span>
+                </a>
+                <button type="button" @click="sidebarOpen = false" class="lg:hidden text-gray-400 hover:text-white p-1 rounded" aria-label="Fermer le menu">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
             
             <nav class="flex-grow">
                 <a class="sidebar-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center p-2 rounded-lg space-x-3" href="{{ route('admin.dashboard') }}">
@@ -135,8 +143,17 @@
         </aside>
         
         <!-- Main Content -->
-        <main class="flex-1 p-8 overflow-y-auto">
-            @yield('content')
+        <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+            <!-- Barre mobile : bouton menu -->
+            <header class="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 py-3 bg-gray-100 border-b border-gray-200">
+                <button type="button" @click="sidebarOpen = true" class="p-2 rounded-lg text-gray-600 hover:bg-gray-200 transition-colors" aria-label="Ouvrir le menu">
+                    <span class="material-symbols-outlined text-3xl">menu</span>
+                </button>
+                <span class="font-semibold text-gray-800 truncate">@yield('title', 'Admin')</span>
+            </header>
+            <div class="flex-1 p-4 sm:p-6 lg:p-8">
+                @yield('content')
+            </div>
         </main>
     </div>
     
