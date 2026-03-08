@@ -21,8 +21,8 @@
     <div class="flex flex-col min-h-screen">
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
   <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
-    <div class="flex items-center justify-between">
-      <a href="{{ url('/') }}" class="flex items-center gap-2 sm:gap-3 shrink-0">
+    <div class="flex items-center justify-between gap-2">
+      <a href="{{ url('/') }}" class="flex items-center gap-2 sm:gap-3 shrink-0 min-h-[44px] items-center">
         <span class="animate-float"><x-logo-ack class="h-10 w-10 sm:h-12 sm:w-auto object-contain" /></span>
       </a>
       
@@ -35,27 +35,27 @@
         <a class="text-sm font-medium transition-colors bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md shrink-0" href="{{ url('/reservation') }}">Réservation</a>
       </div>
 
-      <button id="mobile-menu-btn" type="button" class="lg:hidden text-white p-2 rounded-lg hover:bg-white/10 transition-colors touch-manipulation" aria-label="Ouvrir le menu" aria-expanded="false">
+      <button id="mobile-menu-btn" type="button" class="lg:hidden text-white p-3 rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Ouvrir le menu" aria-expanded="false">
         <span class="material-symbols-outlined text-3xl">menu</span>
       </button>
     </div>
   </div>
-  <!-- Menu mobile (overlay + panneau) -->
-  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/60 z-40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" aria-hidden="true"></div>
-  <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-slate-900 shadow-2xl z-50 flex flex-col opacity-0 pointer-events-none translate-x-full transition-all duration-300 lg:hidden" aria-hidden="true">
-    <div class="flex items-center justify-between p-4 border-b border-slate-700">
-      <span class="text-white font-bold">Menu</span>
-      <button id="mobile-menu-close" type="button" class="text-white p-2 rounded-lg hover:bg-white/10 transition-colors" aria-label="Fermer le menu">
+  <!-- Menu mobile (overlay + panneau) - z-index élevé pour passer au-dessus du contenu -->
+  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/70 z-[100] backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" aria-hidden="true"></div>
+  <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-[min(100%,20rem)] max-w-sm bg-slate-900 shadow-2xl z-[110] flex flex-col opacity-0 pointer-events-none translate-x-full transition-all duration-300 ease-out lg:hidden border-l border-slate-700" aria-hidden="true" style="padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); padding-right: env(safe-area-inset-right);">
+    <div class="flex items-center justify-between p-4 border-b border-slate-700 shrink-0">
+      <span class="text-white font-bold text-lg">Menu</span>
+      <button id="mobile-menu-close" type="button" class="text-white p-3 -m-2 rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Fermer le menu">
         <span class="material-symbols-outlined text-3xl">close</span>
       </button>
     </div>
-    <div class="flex flex-col gap-1 p-4 overflow-y-auto">
-      <a href="{{ url('/') }}#accueil" class="nav-link-mobile rounded-lg px-4 py-3 text-white font-medium">Accueil</a>
-      <a href="{{ url('/') }}#apropos" class="nav-link-mobile rounded-lg px-4 py-3 text-white font-medium">À propos</a>
-      <a href="{{ url('/') }}#programmes" class="nav-link-mobile rounded-lg px-4 py-3 text-white font-medium">Programmes</a>
-      <a href="{{ url('/') }}#actualites" class="nav-link-mobile rounded-lg px-4 py-3 text-white font-medium">Actualités</a>
-      <a href="{{ url('/inscription') }}" class="rounded-lg px-4 py-3 bg-red-600 hover:bg-red-700 text-white font-medium text-center mt-2">Inscription</a>
-      <a href="{{ url('/reservation') }}" class="rounded-lg px-4 py-3 bg-green-600 hover:bg-green-700 text-white font-medium text-center">Réservation</a>
+    <div class="flex flex-col gap-1 p-4 overflow-y-auto flex-1 min-h-0">
+      <a href="{{ url('/') }}#accueil" class="nav-link-mobile rounded-lg px-4 py-3.5 min-h-[48px] flex items-center text-white font-medium">Accueil</a>
+      <a href="{{ url('/') }}#apropos" class="nav-link-mobile rounded-lg px-4 py-3.5 min-h-[48px] flex items-center text-white font-medium">À propos</a>
+      <a href="{{ url('/') }}#programmes" class="nav-link-mobile rounded-lg px-4 py-3.5 min-h-[48px] flex items-center text-white font-medium">Programmes</a>
+      <a href="{{ url('/') }}#actualites" class="nav-link-mobile rounded-lg px-4 py-3.5 min-h-[48px] flex items-center text-white font-medium">Actualités</a>
+      <a href="{{ url('/inscription') }}" class="rounded-lg px-4 py-3.5 min-h-[48px] flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-medium mt-2">Inscription</a>
+      <a href="{{ url('/reservation') }}" class="rounded-lg px-4 py-3.5 min-h-[48px] flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-medium">Réservation</a>
     </div>
   </div>
 </nav>
@@ -122,7 +122,7 @@
       function openMenu() {
         if (!menu || !backdrop) return;
         menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-full');
-        menu.classList.add('translate-x-0');
+        menu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
         menu.setAttribute('aria-hidden', 'false');
         backdrop.classList.remove('opacity-0', 'pointer-events-none');
         backdrop.classList.add('opacity-100', 'pointer-events-auto');
@@ -132,7 +132,7 @@
       function closeMenu() {
         if (!menu || !backdrop) return;
         menu.classList.add('opacity-0', 'pointer-events-none', 'translate-x-full');
-        menu.classList.remove('translate-x-0');
+        menu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
         menu.setAttribute('aria-hidden', 'true');
         backdrop.classList.add('opacity-0', 'pointer-events-none');
         backdrop.classList.remove('opacity-100', 'pointer-events-auto');
