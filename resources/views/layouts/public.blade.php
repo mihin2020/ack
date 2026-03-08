@@ -114,38 +114,57 @@
 </footer>
     </div>
     <script>
-    (function() {
+    document.addEventListener('DOMContentLoaded', function() {
       var btn = document.getElementById('mobile-menu-btn');
       var closeBtn = document.getElementById('mobile-menu-close');
       var menu = document.getElementById('mobile-menu');
       var backdrop = document.getElementById('mobile-menu-backdrop');
-      function openMenu() {
+
+      function openMenu(e) {
+        if (e) e.preventDefault();
         if (!menu || !backdrop) return;
         menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-full');
-        menu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto');
+        menu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto', 'is-open');
+        menu.style.visibility = 'visible';
+        menu.style.opacity = '1';
+        menu.style.transform = 'translateX(0)';
+        menu.style.pointerEvents = 'auto';
         menu.setAttribute('aria-hidden', 'false');
         backdrop.classList.remove('opacity-0', 'pointer-events-none');
-        backdrop.classList.add('opacity-100', 'pointer-events-auto');
+        backdrop.classList.add('opacity-100', 'pointer-events-auto', 'is-open');
+        backdrop.style.visibility = 'visible';
+        backdrop.style.opacity = '1';
+        backdrop.style.pointerEvents = 'auto';
         if (btn) btn.setAttribute('aria-expanded', 'true');
         document.body.style.overflow = 'hidden';
       }
+
       function closeMenu() {
         if (!menu || !backdrop) return;
         menu.classList.add('opacity-0', 'pointer-events-none', 'translate-x-full');
-        menu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto');
+        menu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto', 'is-open');
+        menu.style.visibility = '';
+        menu.style.opacity = '';
+        menu.style.transform = '';
+        menu.style.pointerEvents = '';
         menu.setAttribute('aria-hidden', 'true');
         backdrop.classList.add('opacity-0', 'pointer-events-none');
-        backdrop.classList.remove('opacity-100', 'pointer-events-auto');
+        backdrop.classList.remove('opacity-100', 'pointer-events-auto', 'is-open');
+        backdrop.style.visibility = '';
+        backdrop.style.opacity = '';
+        backdrop.style.pointerEvents = '';
         if (btn) btn.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = '';
       }
+
       if (btn) btn.addEventListener('click', openMenu);
       if (closeBtn) closeBtn.addEventListener('click', closeMenu);
       if (backdrop) backdrop.addEventListener('click', closeMenu);
-      document.querySelectorAll('#mobile-menu .nav-link-mobile, #mobile-menu a').forEach(function(link) {
-        link.addEventListener('click', closeMenu);
-      });
-    })();
+      var menuLinks = document.querySelectorAll('#mobile-menu a');
+      for (var i = 0; i < menuLinks.length; i++) {
+        menuLinks[i].addEventListener('click', closeMenu);
+      }
+    });
     </script>
     @stack('scripts')
     <livewire:scripts />
