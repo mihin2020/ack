@@ -107,7 +107,7 @@
                                     Séances restantes : <span class="font-bold text-red-600">{{ (int)($enfant['nombre_seances'] ?? 0) - count($enfant['dates_seances'] ?? []) }}</span>
                                 </span>
                             </div>
-                            <div class="border border-red-300 rounded-lg p-4 bg-white">
+                            <div class="border border-red-300 rounded-lg p-3 sm:p-4 bg-white overflow-x-auto">
                                 @include('livewire.public.calendrier', ['index' => $index, 'enfant' => $enfant])
                             </div>
                         </div>

@@ -80,19 +80,19 @@
         </ul>
       </div>
 
-      <div>
+      <div class="min-w-0">
         <h4 class="font-bold text-lg mb-4 text-white">Contact</h4>
         <ul class="space-y-3 text-gray-400">
           <li class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary">call</span>
-            (+226) 78495542 / 64707171
+            <span class="material-symbols-outlined text-primary shrink-0">call</span>
+            <span class="break-all">(+226) 78495542 / 64707171</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-primary shrink-0 mt-0.5">mail</span>
+            <a href="mailto:academiecharleskabore@gmail.com" class="hover:text-primary transition-colors break-all min-w-0">academiecharleskabore@gmail.com</a>
           </li>
           <li class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary">mail</span>
-            <a href="mailto:academiecharleskabore@gmail.com" class="hover:text-primary transition-colors">academiecharleskabore@gmail.com</a>
-          </li>
-          <li class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary">location_on</span>
+            <span class="material-symbols-outlined text-primary shrink-0">location_on</span>
             OUAGA 2000
           </li>
         </ul>

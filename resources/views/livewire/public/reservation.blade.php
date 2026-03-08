@@ -5,13 +5,13 @@
     </header>
     
     <!-- Recherche par téléphone -->
-    <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-        <form wire:submit.prevent="search" class="flex gap-4">
-            <input type="number" 
+    <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-8">
+        <form wire:submit.prevent="search" class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <input type="tel" 
                    wire:model="telephone_parent" 
-                   placeholder="Entrez votre numéro de téléphone" 
-                   class="flex-1 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"/>
-            <button type="submit" class="px-8 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                   placeholder="Numéro de téléphone" 
+                   class="w-full min-w-0 border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+            <button type="submit" class="w-full sm:w-auto shrink-0 px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-colors">
                 Rechercher
             </button>
         </form>

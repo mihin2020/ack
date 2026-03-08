@@ -9,15 +9,15 @@
     $totalSeances = $enfant['nombre_seances'] ?? 0;
 @endphp
 
-<div class="calendrier-nav flex justify-between items-center mb-4">
-    <button type="button" wire:click="prevMois({{ $index }})" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-sm">
-        ← Précédent
+<div class="calendrier-nav flex justify-between items-center gap-2 mb-3 sm:mb-4">
+    <button type="button" wire:click="prevMois({{ $index }})" class="calendrier-nav-btn">
+        ← Préc.
     </button>
-    <span class="font-semibold text-gray-800 capitalize">
+    <span class="font-semibold text-gray-800 capitalize text-sm sm:text-base truncate">
         {{ $mois->format('F Y') }}
     </span>
-    <button type="button" wire:click="nextMois({{ $index }})" class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300 text-sm">
-        Suivant →
+    <button type="button" wire:click="nextMois({{ $index }})" class="calendrier-nav-btn">
+        Suiv. →
     </button>
 </div>
 
