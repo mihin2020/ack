@@ -69,9 +69,38 @@ body { font-family: 'Poppins', sans-serif; overflow-x: hidden; }
 #navbar .nav-link { color: rgba(255, 255, 255, 0.95); transition: color 0.2s ease; }
 #navbar .nav-link:hover { color: #F97316; }
 #navbar .nav-link-mobile:hover { background: rgba(255, 255, 255, 0.1); }
-/* Menu mobile ouvert : forcer l'affichage du panneau et du fond */
-#mobile-menu-backdrop.is-open { opacity: 1 !important; pointer-events: auto !important; visibility: visible !important; }
-#mobile-menu.is-open { opacity: 1 !important; pointer-events: auto !important; visibility: visible !important; transform: translateX(0) !important; }
+
+/* Menu mobile simple : bloc sous la barre, visible quand nav.open */
+@media (max-width: 1023px) {
+  .nav-mobile-menu {
+    display: none;
+    flex-direction: column;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    gap: 0.25rem;
+  }
+  #navbar.open .nav-mobile-menu {
+    display: flex;
+  }
+  .nav-mobile-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0.5rem;
+  }
+  .nav-mobile-link:hover { background: rgba(255,255,255,0.1); }
+  .nav-mobile-btn { text-align: center; margin-top: 0.5rem; }
+  .nav-mobile-btn-red { background: #dc2626; color: #fff !important; }
+  .nav-mobile-btn-red:hover { background: #b91c1c; }
+  .nav-mobile-btn-green { background: #16a34a; color: #fff !important; }
+  .nav-mobile-btn-green:hover { background: #15803d; }
+}
+@media (min-width: 1024px) {
+  .nav-mobile-menu { display: none !important; }
+}
+
 .nav-sticky {
   background: rgba(15, 23, 42, 0.92) !important; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);

@@ -22,40 +22,32 @@
 <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300">
   <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
     <div class="flex items-center justify-between gap-2">
-      <a href="{{ url('/') }}" class="flex items-center gap-2 sm:gap-3 shrink-0 min-h-[44px] items-center">
+      <a href="{{ url('/') }}" class="flex items-center gap-2 sm:gap-3 shrink-0">
         <span class="animate-float"><x-logo-ack class="h-10 w-10 sm:h-12 sm:w-auto object-contain" /></span>
       </a>
-      
+
       <div class="hidden lg:flex items-center gap-6 xl:gap-8">
         <a href="{{ url('/') }}#accueil" class="nav-link text-sm font-medium">Accueil</a>
         <a href="{{ url('/') }}#apropos" class="nav-link text-sm font-medium">À propos</a>
         <a href="{{ url('/') }}#programmes" class="nav-link text-sm font-medium">Programmes</a>
         <a href="{{ url('/') }}#actualites" class="nav-link text-sm font-medium">Actualités</a>
-        <a class="text-sm font-medium transition-colors bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg shadow-md shrink-0" href="{{ url('/inscription') }}">Inscription</a>
-        <a class="text-sm font-medium transition-colors bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow-md shrink-0" href="{{ url('/reservation') }}">Réservation</a>
+        <a class="text-sm font-medium bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg" href="{{ url('/inscription') }}">Inscription</a>
+        <a class="text-sm font-medium bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg" href="{{ url('/reservation') }}">Réservation</a>
       </div>
 
-      <button id="mobile-menu-btn" type="button" class="lg:hidden text-white p-3 rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Ouvrir le menu" aria-expanded="false">
+      <button id="mobile-menu-btn" type="button" class="lg:hidden text-white p-2 rounded-lg hover:bg-white/10" aria-label="Menu">
         <span class="material-symbols-outlined text-3xl">menu</span>
       </button>
     </div>
-  </div>
-  <!-- Menu mobile (overlay + panneau) - z-index élevé pour passer au-dessus du contenu -->
-  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/70 z-[100] backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 lg:hidden" aria-hidden="true"></div>
-  <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 w-[min(100%,20rem)] max-w-sm bg-slate-900 shadow-2xl z-[110] flex flex-col opacity-0 pointer-events-none translate-x-full transition-all duration-300 ease-out lg:hidden border-l border-slate-700" aria-hidden="true" style="padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); padding-right: env(safe-area-inset-right);">
-    <div class="flex items-center justify-between p-4 border-b border-slate-700 shrink-0">
-      <span class="text-white font-bold text-lg">Menu</span>
-      <button id="mobile-menu-close" type="button" class="text-white p-3 -m-2 rounded-lg hover:bg-white/10 active:bg-white/20 transition-colors touch-manipulation min-w-[44px] min-h-[44px] flex items-center justify-center" aria-label="Fermer le menu">
-        <span class="material-symbols-outlined text-3xl">close</span>
-      </button>
-    </div>
-    <div class="flex flex-col gap-1 p-4 overflow-y-auto flex-1 min-h-0">
-      <a href="{{ url('/') }}#accueil" class="nav-link-mobile rounded-lg px-4 py-3.5 min-h-[48px] flex items-center text-white font-medium">Accueil</a>
-      <a href="{{ url('/') }}#apropos" class="nav-link-mobile rounded-lg px-4 py-3.5 min-h-[48px] flex items-center text-white font-medium">À propos</a>
-      <a href="{{ url('/') }}#programmes" class="nav-link-mobile rounded-lg px-4 py-3.5 min-h-[48px] flex items-center text-white font-medium">Programmes</a>
-      <a href="{{ url('/') }}#actualites" class="nav-link-mobile rounded-lg px-4 py-3.5 min-h-[48px] flex items-center text-white font-medium">Actualités</a>
-      <a href="{{ url('/inscription') }}" class="rounded-lg px-4 py-3.5 min-h-[48px] flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-medium mt-2">Inscription</a>
-      <a href="{{ url('/reservation') }}" class="rounded-lg px-4 py-3.5 min-h-[48px] flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-medium">Réservation</a>
+
+    <!-- Menu mobile : bloc sous la barre, affiché au clic -->
+    <div id="mobile-menu" class="nav-mobile-menu">
+      <a href="{{ url('/') }}#accueil" class="nav-mobile-link">Accueil</a>
+      <a href="{{ url('/') }}#apropos" class="nav-mobile-link">À propos</a>
+      <a href="{{ url('/') }}#programmes" class="nav-mobile-link">Programmes</a>
+      <a href="{{ url('/') }}#actualites" class="nav-mobile-link">Actualités</a>
+      <a href="{{ url('/inscription') }}" class="nav-mobile-link nav-mobile-btn nav-mobile-btn-red">Inscription</a>
+      <a href="{{ url('/reservation') }}" class="nav-mobile-link nav-mobile-btn nav-mobile-btn-green">Réservation</a>
     </div>
   </div>
 </nav>
@@ -114,57 +106,19 @@
 </footer>
     </div>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    (function() {
       var btn = document.getElementById('mobile-menu-btn');
-      var closeBtn = document.getElementById('mobile-menu-close');
+      var nav = document.getElementById('navbar');
       var menu = document.getElementById('mobile-menu');
-      var backdrop = document.getElementById('mobile-menu-backdrop');
-
-      function openMenu(e) {
-        if (e) e.preventDefault();
-        if (!menu || !backdrop) return;
-        menu.classList.remove('opacity-0', 'pointer-events-none', 'translate-x-full');
-        menu.classList.add('translate-x-0', 'opacity-100', 'pointer-events-auto', 'is-open');
-        menu.style.visibility = 'visible';
-        menu.style.opacity = '1';
-        menu.style.transform = 'translateX(0)';
-        menu.style.pointerEvents = 'auto';
-        menu.setAttribute('aria-hidden', 'false');
-        backdrop.classList.remove('opacity-0', 'pointer-events-none');
-        backdrop.classList.add('opacity-100', 'pointer-events-auto', 'is-open');
-        backdrop.style.visibility = 'visible';
-        backdrop.style.opacity = '1';
-        backdrop.style.pointerEvents = 'auto';
-        if (btn) btn.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
+      if (btn && nav) {
+        btn.addEventListener('click', function() { nav.classList.toggle('open'); });
+        if (menu) {
+          menu.querySelectorAll('a').forEach(function(a) {
+            a.addEventListener('click', function() { nav.classList.remove('open'); });
+          });
+        }
       }
-
-      function closeMenu() {
-        if (!menu || !backdrop) return;
-        menu.classList.add('opacity-0', 'pointer-events-none', 'translate-x-full');
-        menu.classList.remove('translate-x-0', 'opacity-100', 'pointer-events-auto', 'is-open');
-        menu.style.visibility = '';
-        menu.style.opacity = '';
-        menu.style.transform = '';
-        menu.style.pointerEvents = '';
-        menu.setAttribute('aria-hidden', 'true');
-        backdrop.classList.add('opacity-0', 'pointer-events-none');
-        backdrop.classList.remove('opacity-100', 'pointer-events-auto', 'is-open');
-        backdrop.style.visibility = '';
-        backdrop.style.opacity = '';
-        backdrop.style.pointerEvents = '';
-        if (btn) btn.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-
-      if (btn) btn.addEventListener('click', openMenu);
-      if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-      if (backdrop) backdrop.addEventListener('click', closeMenu);
-      var menuLinks = document.querySelectorAll('#mobile-menu a');
-      for (var i = 0; i < menuLinks.length; i++) {
-        menuLinks[i].addEventListener('click', closeMenu);
-      }
-    });
+    })();
     </script>
     @stack('scripts')
     <livewire:scripts />
